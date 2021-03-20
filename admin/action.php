@@ -61,8 +61,16 @@ if ( isset( $_POST['action'] ) && $_POST['action'] === 'login' ) {
 // reset password action
 if ( isset( $_POST['action'] ) && $_POST['action'] === 'reset-password' ) {
     $email  = $_POST['email'];
-    $result = $auth->login( $email );
+    $result = $auth->getUser( $email );
 
-    print_r( $result->fetch_assoc() );
-
+    if ( $result->num_rows === 1 ) {
+        $token = uniqid();
+        if ( $auth->tokenUpdate( $token, $email ) ) {
+            // will code
+        } else {
+            echo $auth->showMessage( 'danger', 'Something Wrong.....!' );
+        }
+    } else {
+        echo $auth->showMessage( 'danger', 'Your email is invalid!' );
+    }
 }

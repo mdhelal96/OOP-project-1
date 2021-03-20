@@ -31,6 +31,24 @@ class Auth extends Config {
         return $result;
     }
 
+    /**
+     * @param $email
+     * @return mixed
+     */
+    public function getUser( $email ) {
+        $result = $this->conn->query( "SELECT * FROM `users` WHERE `email` = '$email'" );
+        return $result;
+    }
+
+    /**
+     * @param $token
+     * @param $email
+     */
+    public function tokenUpdate( $token, $email ) {
+        $query = $this->conn->query( "UPDATE `users` SET `token`='$token' WHERE `email`='$email'" );
+        return $query;
+    }
+
     public function isLogin() {
         session_start();
         return isset( $_SESSION['user_email'] ) ? true : false;

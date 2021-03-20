@@ -119,20 +119,16 @@ $(document).ready(function(){
             if($("#reset-email").val() === "" ){
                 $("#reset-email").addClass("is-invalid");
             }else{
-                $("#reset-email").removeClass("is-invalid");
+                $.ajax({
+                    url: './action.php',
+                    method: 'post',
+                    data: $("#forgotten-form").serialize() + "&action=reset-password",
+                    success: function(response){
+                        $("#resetPasswordError").html(response);
+                    }
+                });
             }
-
-            $.ajax({
-                url: './action.php',
-                method: 'post',
-                data: $("#forgotten-form").serialize() + "&action=reset-password",
-                success: function(response){
-                    $("#resetPassword").val("Reset Password").attr("disabled", false);
-                    $("#resetPasswordError").html(response);
-                }
-            })
-
-
+            $("#resetPassword").val("Reset Password").attr("disabled", false);
         }
     });
 });
