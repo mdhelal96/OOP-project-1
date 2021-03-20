@@ -1,0 +1,19 @@
+{
+    "name": "vendor_name/oop-project1",
+    "description": "Description",
+    "minimum-stability": "stable",
+    "authors":[
+        {
+            "name": "Helal Uddin",
+            "email": "example@gmail.com"
+        }
+    ],
+    "require":{
+
+    },
+    "autoload":{
+        "psr-4":{
+            "App\\": "app"
+        }
+    }
+}

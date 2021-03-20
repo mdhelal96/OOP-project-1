@@ -1,3 +1,11 @@
+<?php
+require_once "../vendor/autoload.php";
+
+use App\Classes\Auth;
+$auth = new Auth();
+
+$auth->isLogin() ? header( "Location: index.php" ) : '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +26,7 @@
                 <div class="card-group">
                     <div class="card p-4">
                         <h2 class="text-center text-primary">Login to your account</h2>
+                        <div id="loginError"></div>
                         <hr class="my-2">
                         <form action="#" method="POST" class="px-3" id="login-form">
                             <div class="input-group input-group-lg form-group">
@@ -26,7 +35,8 @@
                                         <i class="fas fa-envelope"></i>
                                     </span>
                                 </div>
-                                <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email">
+                                <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" value="<?=isset( $_COOKIE['user_email'] ) ? $_COOKIE['user_email'] : '';?>">
+                                <div class="invalid-feedback" role="alert"> Please put your valid email! </div>
                             </div>
                             <div class="input-group input-group-lg form-group">
                                 <div class="input-group-prepend">
@@ -34,23 +44,24 @@
                                         <i class="fas fa-key"></i>
                                     </span>
                                 </div>
-                                <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password">
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password" value="<?=isset( $_COOKIE['user_pass'] ) ? $_COOKIE['user_pass'] : '';?>">
+                                <div class="invalid-feedback" role="alert"> Please put your valid password! </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="float-left custom-control custom-checkbox">
-                                    <input type="checkbox" id="rememberMe">
+                                    <input type="checkbox" name="rememberMe" id="rememberMe" <?=isset( $_COOKIE['user_email'] ) ? 'checked' : '';?> >
                                     <label for="rememberMe">Remember me</label>
                                 </div>
                                 <div class="float-right">
                                     <a href="javascript:" id="showForgetForm" class="text-decoration-none">Forget Password?</a>
                                 </div>
                             </div>
-                            
+
                             <div class="clear-fix"></div>
 
                             <div class="form-group">
-                                <input type="submit" value="Sign In" class="btn btn-block btn-primary"> 
+                                <input type="submit" value="Sign In" id="loginBtn" class="btn btn-block btn-primary">
                             </div>
                         </form>
                     </div>
@@ -72,6 +83,7 @@
                     <div class="card p-4">
                         <h2 class="text-center text-primary">Create new account</h2>
                         <hr class="my-2">
+                        <div id="registerError"></div>
                         <form action="#" method="POST" class="px-3" id="register-form">
 
                             <div class="input-group input-group-lg form-group">
@@ -81,6 +93,7 @@
                                     </span>
                                 </div>
                                 <input type="text" name="name" class="form-control" id="name" placeholder="Enter your name">
+                                <div class="invalid-feedback" role="alert"> Please fill your name! </div>
                             </div>
 
                             <div class="input-group input-group-lg form-group">
@@ -89,7 +102,8 @@
                                         <i class="fas fa-envelope"></i>
                                     </span>
                                 </div>
-                                <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email">
+                                <input type="email" name="email" class="form-control" id="r_email" placeholder="Enter your email" minlength="8">
+                                <div class="invalid-feedback" role="alert"> Please fill the email! </div>
                             </div>
 
                             <div class="input-group input-group-lg form-group">
@@ -98,7 +112,8 @@
                                         <i class="fas fa-key"></i>
                                     </span>
                                 </div>
-                                <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password">
+                                <input type="password" name="r_password" class="form-control" id="r_password" placeholder="Enter your password" minlength="6">
+                                <div class="invalid-feedback" role="alert"> Please your password! </div>
                             </div>
 
                             <div class="input-group input-group-lg form-group">
@@ -107,13 +122,15 @@
                                         <i class="fas fa-key"></i>
                                     </span>
                                 </div>
-                                <input type="password" name="c_password" class="form-control" id="c_password" placeholder="Confirm password">
+                                <input type="password" name="c_password" class="form-control" id="c_password" placeholder="Confirm password" minlength="6">
+                                <div class="invalid-feedback" role="alert"> Please add your confirm password! </div>
+                                <div class="alert alert-danger password-not-match mt-3" role="alert" style="display:none;"> Password does not match! </div>
                             </div>
-                            
+
                             <div class="clear-fix"></div>
 
                             <div class="form-group">
-                                <input type="submit" value="Register" class="btn btn-block btn-primary"> 
+                                <input type="submit" value="Register" id="registerUser" class="btn btn-block btn-primary">
                             </div>
                         </form>
                     </div>
@@ -127,7 +144,7 @@
             </div>
         </div>
         <!-- Admin register form end -->
-        
+
         <!-- Admin forget password start -->
         <div class="row justify-content-center h-100vh" id="forgotten-form-box" style="display: none;">
             <div class="col-lg-10 my-auto">
@@ -146,7 +163,7 @@
                             </div>
                             <div class="clear-fix"></div>
                             <div class="form-group">
-                                <input type="submit" value="Reset Password" class="btn btn-block btn-primary"> 
+                                <input type="submit" value="Reset Password" class="btn btn-block btn-primary">
                             </div>
                         </form>
                     </div>
