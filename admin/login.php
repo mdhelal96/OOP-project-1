@@ -4,7 +4,7 @@ require_once "../vendor/autoload.php";
 use App\Classes\Auth;
 $auth = new Auth();
 
-$auth->isLogin() ? header( "Location: index.php" ) : '';
+$auth->isLogin() ? header( "Location: dashboard.php" ) : '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -151,6 +151,7 @@ $auth->isLogin() ? header( "Location: index.php" ) : '';
                 <div class="card-group">
                     <div class="card p-4">
                         <h2 class="text-center text-primary">Reset your password</h2>
+                        <div id="resetPasswordError"></div>
                         <hr class="my-2">
                         <form action="#" method="POST" class="px-3" id="forgotten-form">
                             <div class="input-group input-group-lg form-group">
@@ -159,11 +160,12 @@ $auth->isLogin() ? header( "Location: index.php" ) : '';
                                         <i class="fas fa-envelope"></i>
                                     </span>
                                 </div>
-                                <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email">
+                                <input type="email" name="email" class="form-control" id="reset-email" placeholder="Enter your email">
+                                <div class="invalid-feedback" role="alert"> Please enter your valid email! </div>
                             </div>
                             <div class="clear-fix"></div>
                             <div class="form-group">
-                                <input type="submit" value="Reset Password" class="btn btn-block btn-primary">
+                                <input type="submit" value="Reset Password" id="resetPassword" class="btn btn-block btn-primary">
                             </div>
                         </form>
                     </div>

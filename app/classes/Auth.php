@@ -18,7 +18,7 @@ class Auth extends Config {
      * @param $email
      */
     public function user_exist( $email ) {
-        $result = $this->conn->query( "SELECT `email` FROM `users` WHERE `email` = '$email'" );
+        $result = $this->conn->query( "SELECT `name`, `email` FROM `users` WHERE `email` = '$email'" );
         return $result->num_rows;
     }
 

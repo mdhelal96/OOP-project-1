@@ -60,7 +60,7 @@ $(document).ready(function(){
                         data: $("#register-form").serialize()+"&action=register",
                         success: function(response){
                             if(response === 'ok'){
-                                window.location = 'index.php';
+                                window.location = 'dashboard.php';
                             }else{
                                 $("#registerError").html(response);
                             }
@@ -98,10 +98,37 @@ $(document).ready(function(){
                 success: function(response){
                     $("#loginBtn").val("Sign In").attr("disabled", false);
                     if(response === 'ok'){
-                        window.location = 'index.php';
+                        window.location = 'dashboard.php';
                     }else{
                         $("#loginError").html(response);
                     }
+                }
+            })
+
+
+        }
+    });
+
+
+    // forgot password js
+    $("#resetPassword").click(function(e){
+        if($("#forgotten-form")[0].checkValidity()){
+            e.preventDefault();
+            $("#resetPassword").val("Loading....").attr("disabled", true);
+
+            if($("#reset-email").val() === "" ){
+                $("#reset-email").addClass("is-invalid");
+            }else{
+                $("#reset-email").removeClass("is-invalid");
+            }
+
+            $.ajax({
+                url: './action.php',
+                method: 'post',
+                data: $("#forgotten-form").serialize() + "&action=reset-password",
+                success: function(response){
+                    $("#resetPassword").val("Reset Password").attr("disabled", false);
+                    $("#resetPasswordError").html(response);
                 }
             })
 

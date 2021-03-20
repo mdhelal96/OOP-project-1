@@ -46,6 +46,7 @@ if ( isset( $_POST['action'] ) && $_POST['action'] === 'login' ) {
                 }
 
                 $_SESSION['user_email'] = $email;
+                $_SESSION['user_name']  = $row['name'];
             } else {
                 echo $auth->showMessage( 'warning', 'Your account inactive! Please contact with owner.' );
             }
@@ -55,4 +56,13 @@ if ( isset( $_POST['action'] ) && $_POST['action'] === 'login' ) {
     } else {
         echo $auth->showMessage( 'warning', 'The credentials do not match our records!' );
     }
+}
+
+// reset password action
+if ( isset( $_POST['action'] ) && $_POST['action'] === 'reset-password' ) {
+    $email  = $_POST['email'];
+    $result = $auth->login( $email );
+
+    print_r( $result->fetch_assoc() );
+
 }
