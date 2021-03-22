@@ -3,8 +3,11 @@ session_start();
 require_once "../vendor/autoload.php";
 
 use App\Classes\Auth;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
 
 $auth = new Auth();
+$mail = new PHPMailer( true );
 
 // register action
 if ( isset( $_POST['action'] ) && $_POST['action'] === 'register' ) {
@@ -66,11 +69,80 @@ if ( isset( $_POST['action'] ) && $_POST['action'] === 'reset-password' ) {
     if ( $result->num_rows === 1 ) {
         $token = uniqid();
         if ( $auth->tokenUpdate( $token, $email ) ) {
-            // will code
+            try {
+                //Server settings
+                $mail->isSMTP(); //Send using SMTP
+                $mail->Host       = 'smtp.gmail.com'; //Set the SMTP server to send through
+                $mail->SMTPAuth   = true; //Enable SMTP authentication
+                $mail->Username   = 'he786lal@gmail.com'; //SMTP username
+                $mail->Password   = 'helal786uddin'; //SMTP password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                $mail->Port       = 587; //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+                //Recipients
+                $mail->setFrom( 'he786lal@gmail.com', 'OOP Project 1' );
+                $mail->addAddress( $email ); //Add a recipient
+                // $mail->addAddress( 'ellen@example.com' );
+                // $mail->addReplyTo( 'info@example.com', 'Information' );
+                // $mail->addCC( 'cc@example.com' );
+                // $mail->addBCC( 'bcc@example.com' );
+
+                //Content
+                $mail->isHTML( true ); //Set email format to HTML
+                $mail->Subject = 'Reset Password';
+                $mail->Body    = '<!DOCTYPE html>
+                                    <html lang="en">
+                                    <head>
+                                        <meta charset="UTF-8">
+                                        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                        <title>Document</title>
+
+                                        <style>
+                                            .email-body h3 {
+                                                background-color: #ddd;
+                                                padding: 23px;
+                                                text-align: center;
+                                            }
+
+                                            .email-body {
+                                                border: 1px solid #bdbcbc;
+                                                border-radius: 4px;
+                                                text-align: center;
+                                            }
+
+                                            .email-body a {
+                                                background: #fe6f4b;
+                                                color: #fff;
+                                                font-size: 18px;
+                                                padding: 18px;
+                                                display: inline-block;
+                                                text-decoration: none;
+                                            }
+                                        </style>
+                                    </head>
+                                    <body>
+                                        <div class="email-body">
+                                            <h3>Reset your password?</h3>
+                                            <a href="http://localhost:8080/oop-project1/admin/reset-password.php?email=' . $email . '?token=' . $token . '">Click Here</a>
+                                        </div>
+                                    </body>
+                                    </html>';
+
+                $mail->send();
+                echo $auth->showMessage( 'success', 'Message has been sent to your email: ' . $email );
+            } catch ( Exception $e ) {
+                echo $auth->showMessage( "danger", "Message could not be sent. Mailer Error: {$mail->ErrorInfo}" );
+            }
         } else {
             echo $auth->showMessage( 'danger', 'Something Wrong.....!' );
         }
     } else {
         echo $auth->showMessage( 'danger', 'Your email is invalid!' );
     }
+}
+
+// reset new password
+if ( isset( $_POST['action'] ) && $_POST['action'] === 'reset' ) {
+    print_r( $_POST );
 }

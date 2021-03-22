@@ -124,11 +124,43 @@ $(document).ready(function(){
                     method: 'post',
                     data: $("#forgotten-form").serialize() + "&action=reset-password",
                     success: function(response){
+                        $("#resetPassword").val("Reset Password").attr("disabled", false);
                         $("#resetPasswordError").html(response);
+                        $("#reset-email").val('');
                     }
                 });
             }
-            $("#resetPassword").val("Reset Password").attr("disabled", false);
+        }
+    });
+
+    // reset password js
+    $("#forgotBtn").click(function(e){
+        if($("#forgot-password-form")[0].checkValidity()){
+            e.preventDefault();
+            $("#forgotBtn").val("Loading....").attr("disabled", true);
+
+            if($("#password").val() === "" ){
+                $("#password").addClass("is-invalid");
+            }else{
+                $("#password").removeClass("is-invalid");
+            }
+
+            if($("#password").val() === $("#confirm-password").val()){
+                $("#confirm-password").removeClass("is-invalid");
+                $.ajax({
+                    url: './action.php',
+                    method: 'post',
+                    data: $("#forgot-password-form").serialize() + "&action=reset",
+                    success: function(response){
+                        $("#forgotBtn").val("Reset Password").attr("disabled", false);
+                        $("#resetError").html(response);
+                        $("#password").val('');
+                        $("#confirm-password").val('');
+                    }
+                });
+            }else{
+                $("#confirm-password").addClass("is-invalid");
+            }
         }
     });
 });
