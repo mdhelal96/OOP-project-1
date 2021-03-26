@@ -1,0 +1,43 @@
+.slider-create-btn {
+    display: inline-block !important;
+    padding: 11px 23px;
+    height: unset;
+    background: #4fc3f7;
+    font-weight: 700;
+}
+
+
+/* loader css */
+.ajax-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #0000008c;
+    display: none;
+}
+
+#circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px
+}
+
+.loader {
+    width: calc(100% - 0px);
+    height: calc(100% - 0px);
+    border: 8px solid #162534;
+    border-top: 8px solid #09f;
+    border-radius: 50%;
+    animation: rotate 5s linear infinite
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg)
+    }
+}

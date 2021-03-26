@@ -4,7 +4,21 @@ require_once "../vendor/autoload.php";
 use App\Classes\Auth;
 $auth = new Auth();
 
-$auth->isLogin() ? header( "Location: dashboard.php" ) : '';
+$auth->isLogin() ? header( "location: dashboard.php" ) : false;
+
+if ( isset( $_GET['email'] ) && isset( $_GET['token'] ) ) {
+    $email  = $_GET['email'];
+    $token  = $_GET['token'];
+    $result = $auth->check_token( $email, $token );
+
+    if ( $result->num_rows !== 1 ) {
+        header( "location: login.php" );
+    }
+
+} else {
+    header( "location: login.php" );
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +49,7 @@ $auth->isLogin() ? header( "Location: dashboard.php" ) : '';
                         <div id="resetError"></div>
                         <hr class="my-2">
                         <form action="#" method="POST" class="px-3" id="forgot-password-form">
-
+                            <input type="hidden" value="<?=$email?>" name="email">
                             <div class="input-group input-group-lg form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">

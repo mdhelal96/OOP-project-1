@@ -124,7 +124,7 @@ if ( isset( $_POST['action'] ) && $_POST['action'] === 'reset-password' ) {
                                     <body>
                                         <div class="email-body">
                                             <h3>Reset your password?</h3>
-                                            <a href="http://localhost:8080/oop-project1/admin/reset-password.php?email=' . $email . '?token=' . $token . '">Click Here</a>
+                                            <a href="http://localhost:8080/oop-project1/admin/reset-password.php?email=' . $email . '&token=' . $token . '">Click Here</a>
                                         </div>
                                     </body>
                                     </html>';
@@ -144,5 +144,14 @@ if ( isset( $_POST['action'] ) && $_POST['action'] === 'reset-password' ) {
 
 // reset new password
 if ( isset( $_POST['action'] ) && $_POST['action'] === 'reset' ) {
-    print_r( $_POST );
+    $email            = $_POST['email'];
+    $password         = $_POST['password'];
+    $confirm_password = $_POST['confirm-password'];
+
+    if ( $email !== NULL || $password !== NULL || $confirm_password !== NULL ) {
+        $newPassword = password_hash( $password, PASSWORD_BCRYPT );
+        echo $auth->reset_password( $email, $newPassword ) ? $auth->showMessage( 'success', 'New password has been changed. <a href="login.php">Login</a>' ) : $auth->showMessage( 'danger', 'Something wrong!' );
+    } else {
+        echo $auth->showMessage( 'danger', 'The password not changed!' );
+    }
 }
