@@ -22,6 +22,7 @@ $auth->isLogin() ? false : header( "Location: login.php" );
 
     <link href="../assets/css/admin/style.min.css" rel="stylesheet">
     <link href="../assets/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="../assets/css/datepicker.css" rel="stylesheet">
     <link href="../assets/css/admin/style.css" rel="stylesheet">
 
 </head>

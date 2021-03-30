@@ -68,11 +68,11 @@
                         </div>
                         <div class="mb-3">
                             <label for="start_date" class="form-label">Start Date</label>
-                            <input type="date" name="start_date" class="form-control" id="start_date">
+                            <input type="text" name="start_date" class="form-control datepicker" id="start_date">
                         </div>
                         <div class="mb-3">
                             <label for="end_date" class="form-label">End Date</label>
-                            <input type="date" name="end_date" class="form-control" id="end_date">
+                            <input type="text" name="end_date" class="form-control datepicker" id="end_date">
                         </div>
                         <div class="mb-3">
                             <label for="url_1" class="form-label">Url One</label>
@@ -81,7 +81,16 @@
 
                         <div class="mb-3">
                             <label for="image" class="form-label">Image</label>
-                            <input class="form-control form-control-lg" name="image" id="image" type="file">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <input class="form-control form-control-lg" name="image" id="image" type="file" onchange="ImageView(this)">
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="preview-img">
+                                        <img src="https://via.placeholder.com/400" class="image-view" alt="Image Not Found!">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="mb-3">

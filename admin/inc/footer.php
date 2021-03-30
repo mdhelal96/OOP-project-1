@@ -44,6 +44,7 @@
             <script src="../assets/js/admin/sidebarmenu.js"></script>
             <!--Custom JavaScript -->
             <script src="../assets/js/admin/admin-custom.js"></script>
+            <script src="../assets/js/bootstrap-datepicker.js"></script>
             <script src="../assets/js/admin/script.js"></script>
             <!--This page JavaScript -->
             <!--chartis chart-->
