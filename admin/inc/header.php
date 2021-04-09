@@ -23,6 +23,7 @@ $auth->isLogin() ? false : header( "Location: login.php" );
     <link href="../assets/css/admin/style.min.css" rel="stylesheet">
     <link href="../assets/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link href="../assets/css/datepicker.css" rel="stylesheet">
+    <link href="../assets/css/toastr.min.css" rel="stylesheet">
     <link href="../assets/css/admin/style.css" rel="stylesheet">
 
 </head>
@@ -149,14 +150,14 @@ $auth->isLogin() ? false : header( "Location: login.php" );
 
                                             <?php
 
-                                                if(isset($_SESSION['user_name'])){
-                                                    $firstName = explode( " ", $_SESSION['user_name'] );
-                                                    echo $firstName[0];
-                                                }else{
-                                                    echo "Hi There";
-                                                }
+if ( isset( $_SESSION['user_name'] ) ) {
+    $firstName = explode( " ", $_SESSION['user_name'] );
+    echo $firstName[0];
+} else {
+    echo "Hi There";
+}
 
-                                            ?>
+?>
 
                                         <i class="fa fa-angle-down"></i></h5>
                                         <span class="op-5 user-email"><?php echo $_SESSION['user_email']; ?></span>

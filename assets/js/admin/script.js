@@ -28,7 +28,15 @@ jQuery(document).ready(function () {
             data: formData,
             success: function (result) {
                 $(".ajax-loader").hide();
-                console.log(result);
+                if(!result.error){
+                    $("#create-form")[0].reset();
+                    $(".image-view").attr('src', 'https://via.placeholder.com/400');
+                    toastr.success(result.message, {timeOut: 1000});
+                    toastr.options.progressBar = true;
+                }else{
+                    toastr.error(result.message, {timeOut: 1000});
+                    toastr.options.progressBar = true;
+                }
             }
         });
 
