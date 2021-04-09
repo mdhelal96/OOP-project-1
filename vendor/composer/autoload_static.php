@@ -28,11 +28,17 @@ class ComposerStaticInit5fa6238a55c0af680fa6c770e4b2a8dd
         ),
     );
 
+    public static $classMap = array (
+        'App\\Classes\\Auth' => __DIR__ . '/../..' . '/app/classes/Auth.php',
+        'App\\Classes\\Config' => __DIR__ . '/../..' . '/app/classes/Config.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit5fa6238a55c0af680fa6c770e4b2a8dd::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit5fa6238a55c0af680fa6c770e4b2a8dd::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit5fa6238a55c0af680fa6c770e4b2a8dd::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -16,13 +16,16 @@ jQuery(document).ready(function () {
         event.preventDefault();
         $(".ajax-loader").show();
 
+        let formData = new FormData(this);
+        formData.append('action', $(this).data('url'));
+
         $.ajax({
             url: './inc/action.php',
             method: 'POST',
             processData: false,
             contentType: false,
             dataType: 'JSON',
-            data: new FormData(this),
+            data: formData,
             success: function (result) {
                 $(".ajax-loader").hide();
                 console.log(result);
@@ -33,11 +36,13 @@ jQuery(document).ready(function () {
 
     // custom date picker design
     $(".datepicker").datepicker({
-        format: 'yyyy/mm/dd',
+        format: 'yyyy-mm-dd',
         autoclose: true,
         startView: 2,
-        todayBtn: true,
-        todayHighlight: true,    
+        todayBtn: true, 
+        todayHighlight: true,
     });
+
+    console.log("Test");
 
 });

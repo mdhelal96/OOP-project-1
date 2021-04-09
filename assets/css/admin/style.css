@@ -42,7 +42,7 @@
     font-weight: 700;
 }
 
-.preview-img img{
-    width: 280px;
-    height: 280px;
+.preview-img img {
+    width: 100%;
+    height: auto;
 }

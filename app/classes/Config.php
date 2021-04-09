@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Classes;
+
 use mysqli;
 
 class Config {
@@ -9,7 +10,8 @@ class Config {
      */
     public $conn;
     public function __construct() {
-        $this->conn = new mysqli( 'localhost', 'root', '', 'oop-project1' );
+        session_start();
+        $this->conn = new mysqli( 'localhost', 'root', 'helal2244', 'oop-project1' );
 
         if ( $this->conn->connect_error ) {
             die( $this->conn->connect_error );
@@ -28,6 +30,7 @@ class Config {
             </button>
         </div>
         MARKUP;
+
         return $output;
     }
 }

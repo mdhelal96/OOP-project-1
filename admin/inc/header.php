@@ -146,10 +146,18 @@ $auth->isLogin() ? false : header( "Location: login.php" );
                                     <a href="#" class="" id="Userdd" role="button"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <h5 class="m-b-0 user-name font-medium">
+
                                             <?php
-$firstName = explode( " ", $_SESSION['user_name'] );
-echo $firstName[0];
-?>
+
+                                                if(isset($_SESSION['user_name'])){
+                                                    $firstName = explode( " ", $_SESSION['user_name'] );
+                                                    echo $firstName[0];
+                                                }else{
+                                                    echo "Hi There";
+                                                }
+
+                                            ?>
+
                                         <i class="fa fa-angle-down"></i></h5>
                                         <span class="op-5 user-email"><?php echo $_SESSION['user_email']; ?></span>
                                     </a>

@@ -1,4 +1,4 @@
-<?php require_once 'inc/header.php';?>
+<?php require_once 'inc/header.php'; ?>
 <!-- ============================================================== -->
 <!-- Bread crumb and right sidebar toggle -->
 <!-- ============================================================== -->
@@ -35,8 +35,7 @@
                             <h3>Add New Sliders</h3>
                         </div>
                         <div class="col text-end">
-                            <a href="sliders.php"
-                                class="btn slider-create-btn create-btn text-white no-block  align-items-center">
+                            <a href="sliders.php" class="btn slider-create-btn create-btn text-white no-block  align-items-center">
                                 <i class="fa fa-plus-square"></i>
                                 <span class="hide-menu m-l-5">Manage Slider</span>
                             </a>
@@ -57,7 +56,7 @@
 
                 <div class="col-12">
 
-                    <form method="POST" action="" id="create-form">
+                    <form method="POST" action="" data-url="save-slider" id="create-form">
                         <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
                             <input type="text" name="title" class="form-control" id="title">
@@ -96,7 +95,7 @@
                         <div class="mb-3">
                             <label for="status" class="d-block form-label">Status</label>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status" id="active" value="1">
+                                <input class="form-check-input" type="radio" checked name="status" id="active" value="1">
                                 <label class="form-check-label" for="active">Active</label>
                             </div>
                             <div class="form-check form-check-inline">
@@ -118,4 +117,4 @@
 <!-- ============================================================== -->
 <!-- End Container fluid  -->
 
-<?php require_once 'inc/footer.php';?>
+<?php require_once 'inc/footer.php'; ?>

@@ -1,4 +1,4 @@
-<?php require_once 'inc/header.php';?>
+<?php require_once 'inc/header.php'; ?>
 <!-- ============================================================== -->
 <!-- Bread crumb and right sidebar toggle -->
 <!-- ============================================================== -->
@@ -35,8 +35,7 @@
                             <h3>Manage Sliders</h3>
                         </div>
                         <div class="col text-end">
-                            <a href="create-slider.php"
-                                class="btn slider-create-btn create-btn text-white no-block  align-items-center">
+                            <a href="create-slider.php" class="btn slider-create-btn create-btn text-white no-block  align-items-center">
                                 <i class="fa fa-plus-square"></i>
                                 <span class="hide-menu m-l-5">Add New Slider</span>
                             </a>
@@ -49,6 +48,7 @@
     <!-- add and manage slider end -->
 
     <!-- slider list start -->
+
     <div class="row">
         <!-- column -->
         <div class="col-12">
@@ -62,47 +62,49 @@
                         <!--  -->
                     </div>
                     <!-- title -->
-                </div>
-                <div class="table-responsive">
-                    <table id="slideDataTable" class="table v-middle">
-                        <thead>
-                            <tr class="bg-light">
-                                <th class="border-top-0">SL No</th>
-                                <th class="border-top-0">Title</th>
-                                <th class="border-top-0">Image</th>
-                                <th class="border-top-0">Status</th>
-                                <th class="border-top-0">Time Limit</th>
-                                <th class="border-top-0">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="m-r-10"><a class="btn btn-circle d-flex btn-info text-white">EA</a>
+
+                    <div class="table-responsive">
+                        <table id="slideDataTable" class="table v-middle">
+                            <thead>
+                                <tr class="bg-light">
+                                    <th class="border-top-0">SL No</th>
+                                    <th class="border-top-0">Title</th>
+                                    <th class="border-top-0">Image</th>
+                                    <th class="border-top-0">Status</th>
+                                    <th class="border-top-0">Time Limit</th>
+                                    <th class="border-top-0">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="m-r-10"><a class="btn btn-circle d-flex btn-info text-white">EA</a>
+                                            </div>
+                                            <div class="">
+                                                <h4 class="m-b-0 font-16">Elite Admin</h4>
+                                            </div>
                                         </div>
-                                        <div class="">
-                                            <h4 class="m-b-0 font-16">Elite Admin</h4>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>Single Use</td>
-                                <td>John Doe</td>
-                                <td>
-                                    <label class="label label-danger">Angular</label>
-                                </td>
-                                <td>John Doe</td>
-                                <td>John Doe</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </td>
+                                    <td>Single Use</td>
+                                    <td>John Doe</td>
+                                    <td>
+                                        <label class="label label-danger">Angular</label>
+                                    </td>
+                                    <td>John Doe</td>
+                                    <td>John Doe</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- slider list end -->
 </div>
 <!-- ============================================================== -->
 <!-- End Container fluid  -->
 
-<?php require_once 'inc/footer.php';?>
+<?php require_once 'inc/footer.php'; ?>

@@ -2,14 +2,16 @@
 
 namespace App\Classes;
 
-class Auth extends Config {
+class Auth extends Config
+{
     /**
      * @param $name
      * @param $email
      * @param $password
      */
-    public function register( $name, $email, $password ) {
-        $result = $this->conn->query( "INSERT INTO `users`(`name`, `email`, `password`) VALUES ('$name', '$email', '$password')" );
+    public function register($name, $email, $password)
+    {
+        $result = $this->conn->query("INSERT INTO `users`(`name`, `email`, `password`) VALUES ('$name', '$email', '$password')");
 
         return $result ? true : false;
     }
@@ -17,8 +19,9 @@ class Auth extends Config {
     /**
      * @param $email
      */
-    public function user_exist( $email ) {
-        $result = $this->conn->query( "SELECT `name`, `email` FROM `users` WHERE `email` = '$email'" );
+    public function user_exist($email)
+    {
+        $result = $this->conn->query("SELECT `name`, `email` FROM `users` WHERE `email` = '$email'");
         return $result->num_rows;
     }
 
@@ -26,8 +29,9 @@ class Auth extends Config {
      * @param $email
      * @return mixed
      */
-    public function login( $email ) {
-        $result = $this->conn->query( "SELECT * FROM `users` WHERE `email` = '$email'" );
+    public function login($email)
+    {
+        $result = $this->conn->query("SELECT * FROM `users` WHERE `email` = '$email'");
         return $result;
     }
 
@@ -35,8 +39,9 @@ class Auth extends Config {
      * @param $email
      * @return mixed
      */
-    public function getUser( $email ) {
-        $result = $this->conn->query( "SELECT * FROM `users` WHERE `email` = '$email'" );
+    public function getUser($email)
+    {
+        $result = $this->conn->query("SELECT * FROM `users` WHERE `email` = '$email'");
         return $result;
     }
 
@@ -44,8 +49,9 @@ class Auth extends Config {
      * @param $token
      * @param $email
      */
-    public function tokenUpdate( $token, $email ) {
-        $query = $this->conn->query( "UPDATE `users` SET `token`='$token' WHERE `email`='$email'" );
+    public function tokenUpdate($token, $email)
+    {
+        $query = $this->conn->query("UPDATE `users` SET `token`='$token' WHERE `email`='$email'");
         return $query;
     }
 
@@ -54,8 +60,9 @@ class Auth extends Config {
      * @param $token
      * @return mixed
      */
-    public function check_token( $email, $token ) {
-        $result = $this->conn->query( "SELECT * FROM `users` WHERE `email` = '$email' AND `token` = '$token'" );
+    public function check_token($email, $token)
+    {
+        $result = $this->conn->query("SELECT * FROM `users` WHERE `email` = '$email' AND `token` = '$token'");
         return $result;
     }
 
@@ -64,13 +71,14 @@ class Auth extends Config {
      * @param $password
      * @return mixed
      */
-    public function reset_password( $email, $password ) {
-        $result = $this->conn->query( "UPDATE `users` SET `password`='$password' WHERE `email`='$email'" );
+    public function reset_password($email, $password)
+    {
+        $result = $this->conn->query("UPDATE `users` SET `password`='$password' WHERE `email`='$email'");
         return $result;
     }
 
-    public function isLogin() {
-        session_start();
-        return isset( $_SESSION['user_email'] ) ? true : false;
+    public function isLogin()
+    {
+        return isset($_SESSION['user_email']) ? true : false;
     }
 }
