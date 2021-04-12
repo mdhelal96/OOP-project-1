@@ -1,4 +1,13 @@
-<?php require_once 'inc/header.php'; ?>
+<?php
+
+require_once 'inc/header.php';
+
+use App\classes\Slider;
+$slider = new Slider();
+
+$result = $slider->Slider();
+
+?>
 <!-- ============================================================== -->
 <!-- Bread crumb and right sidebar toggle -->
 <!-- ============================================================== -->
@@ -68,32 +77,29 @@
                             <thead>
                                 <tr class="bg-light">
                                     <th class="border-top-0">SL No</th>
+                                    <th class="border-top-0 image-column">Image</th>
                                     <th class="border-top-0">Title</th>
-                                    <th class="border-top-0">Image</th>
-                                    <th class="border-top-0">Status</th>
+                                    <th class="border-top-0">Sub Title</th>
                                     <th class="border-top-0">Time Limit</th>
+                                    <th class="border-top-0">Status</th>
                                     <th class="border-top-0">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <?php while ( $row = $result->fetch_assoc() ): ?>
+                                <tr class="remove-row-<?=$row['id'];?>">
+                                    <td> <?=$row['id'];?> </td>
+                                    <td class="slide-img"> <img src="../uploads/slider/<?=$row['image'];?>" alt="Not Found!"> </td>
+                                    <td> <?=$row['title'];?> </td>
+                                    <td> <?=$row['sub_title'];?> </td>
+                                    <td> <?=$row['start_date'];?> - <?=$row['end_date'];?> </td>
+                                    <td> <?=$slider->SlideStatus( $row['status'] );?> </td>
                                     <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="m-r-10"><a class="btn btn-circle d-flex btn-info text-white">EA</a>
-                                            </div>
-                                            <div class="">
-                                                <h4 class="m-b-0 font-16">Elite Admin</h4>
-                                            </div>
-                                        </div>
+                                        <a href="edit-slider.php" class="btn btn-warning text-black">Edit</a>
+                                        <button type="button" class="btn btn-danger text-white remove-slider" data-id="<?=$row['id'];?>">Delete</button>
                                     </td>
-                                    <td>Single Use</td>
-                                    <td>John Doe</td>
-                                    <td>
-                                        <label class="label label-danger">Angular</label>
-                                    </td>
-                                    <td>John Doe</td>
-                                    <td>John Doe</td>
                                 </tr>
+                                <?php endwhile;?>
                             </tbody>
                         </table>
                     </div>
@@ -107,4 +113,4 @@
 <!-- ============================================================== -->
 <!-- End Container fluid  -->
 
-<?php require_once 'inc/footer.php'; ?>
+<?php require_once 'inc/footer.php';?>

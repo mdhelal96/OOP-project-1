@@ -32,3 +32,23 @@ if ( isset( $_POST['action'] ) && $_POST['action'] === 'save-slider' ) {
     echo json_encode( $data );
 
 }
+
+if ( isset( $_POST['action'] ) && $_POST['action'] === 'delete-slider' ) {
+
+    $id     = $_POST['id'];
+    $result = $slider->GetSlider( $id );
+    $row    = $result->fetch_assoc();
+
+    if ( $slider->Delete( $id ) ) {
+
+        $img_file = '../../uploads/slider/' . $row['image'];
+        file_exists( $img_file ) ? unlink( $img_file ) : '';
+
+        $data['message'] = "Slider has been deleted!";
+    } else {
+        $data['error']   = true;
+        $data['message'] = "Slider not deleted!";
+    }
+
+    echo json_encode( $data );
+}

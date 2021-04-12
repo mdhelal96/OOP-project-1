@@ -42,6 +42,49 @@ jQuery(document).ready(function () {
 
     });
 
+    // remove slider js
+    $(".remove-slider").on('click', function(){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                let id = $(this).data('id');
+                $(".ajax-loader").show();
+                $.ajax({
+                    url: './inc/action.php',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {id: id, action: 'delete-slider'},
+
+                    success: function (result) {
+                        $(".ajax-loader").hide();
+                        if(!result.error){
+                            $(".remove-row-" + id).hide();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        } else{
+                            toastr.error(result.message, {timeOut: 1000});
+                            toastr.options.progressBar = true;
+                        }
+                    }
+                });
+
+              
+            }
+        })
+    });
+
+
     // custom date picker design
     $(".datepicker").datepicker({
         format: 'yyyy-mm-dd',

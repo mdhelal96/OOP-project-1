@@ -46,3 +46,11 @@
     width: 100%;
     height: auto;
 }
+
+.image-column, .slide-img {
+    width: 70px !important;
+}
+
+.slide-img img {
+    width: 60px;
+}

@@ -10,7 +10,6 @@ class Config {
      */
     public $conn;
     public function __construct() {
-        session_start();
         $this->conn = new mysqli( 'localhost', 'root', 'helal2244', 'oop-project1' );
 
         if ( $this->conn->connect_error ) {
