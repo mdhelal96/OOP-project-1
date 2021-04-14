@@ -1,12 +1,19 @@
 <?php
+ob_start();
 require_once 'inc/header.php';
 
 use App\classes\Slider;
 $slider = new Slider();
-$result = $slider->GetSlider( 16 );
+
+$id = isset( $_GET['edit'] ) ? $_GET['edit'] : '';
+
+$result = $slider->GetSlider( $id );
+
+if ( $result->num_rows == 0 ) {
+    header( 'location: sliders.php' );
+}
 
 $row = $result->fetch_assoc();
-
 ?>
 <!-- ============================================================== -->
 <!-- Bread crumb and right sidebar toggle -->
@@ -65,7 +72,8 @@ $row = $result->fetch_assoc();
 
                 <div class="col-12">
 
-                    <form method="POST" action="" data-url="save-slider" id="create-form">
+                    <form method="POST" action="" data-url="update-slider" id="update-form">
+                        <input type="hidden" name="id" value="<?=$row['id'];?>">
                         <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
                             <input type="text" name="title" class="form-control" id="title" value="<?=$row['title'];?>">
@@ -96,6 +104,7 @@ $row = $result->fetch_assoc();
                                 <div class="col-lg-4">
                                     <div class="preview-img">
                                         <img src="../uploads/slider/<?=$row['image'];?>" class="image-view" alt="Image Not Found!">
+                                        <input type="hidden" name="old_image" value="<?=$row['image'];?>">
                                     </div>
                                 </div>
                             </div>

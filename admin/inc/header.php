@@ -1,10 +1,12 @@
 <?php
+
 require_once "../vendor/autoload.php";
 
 use App\Classes\Auth;
 $auth = new Auth();
 
-$auth->isLogin() ? false : header( "Location: login.php" );
+$auth->isLogin() ? false : header( "location: login.php" );
+
 ?>
 
 <!DOCTYPE html>
@@ -148,7 +150,7 @@ $auth->isLogin() ? false : header( "Location: login.php" );
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <h5 class="m-b-0 user-name font-medium">
 
-                                            <?php
+<?php
 
 if ( isset( $_SESSION['user_name'] ) ) {
     $firstName = explode( " ", $_SESSION['user_name'] );

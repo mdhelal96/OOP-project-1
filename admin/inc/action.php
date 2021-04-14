@@ -8,6 +8,7 @@ use App\classes\Slider;
 $slider = new Slider();
 $data   = ['error' => false];
 
+// save slider
 if ( isset( $_POST['action'] ) && $_POST['action'] === 'save-slider' ) {
     $title      = $_POST['title'];
     $sub_title  = $_POST['sub_title'];
@@ -33,6 +34,60 @@ if ( isset( $_POST['action'] ) && $_POST['action'] === 'save-slider' ) {
 
 }
 
+// update slider
+if ( isset( $_POST['action'] ) && $_POST['action'] === 'update-slider' ) {
+    $id         = $_POST['id'];
+    $title      = $_POST['title'];
+    $sub_title  = $_POST['sub_title'];
+    $start_date = $_POST['start_date'];
+    $end_date   = $_POST['end_date'];
+    $url_1      = $_POST['url_1'];
+    $status     = $_POST['status'];
+    $old_image  = $_POST['old_image'];
+
+    if ( $_FILES['image']['name'] ) {
+        $image   = $_FILES['image']['name'];
+        $image   = explode( '.', $image );
+        $imageEx = end( $image );
+        $image   = uniqid() . rand( 22222, 99999 ) . '.' . $imageEx;
+    } else {
+        $image = $old_image;
+    }
+
+    if ( $slider->updateSlider( $id, $title, $sub_title, $start_date, $end_date, $url_1, $status, $image ) ) {
+
+        if ( $image !== $old_image ) {
+            move_uploaded_file( $_FILES['image']['tmp_name'], '../../uploads/slider/' . $image );
+            $img_old = '../../uploads/slider/' . $old_image;
+            file_exists( $img_old ) ? unlink( $img_old ) : '';
+        }
+
+        $data['message'] = "Slider has been updated.";
+    } else {
+        $data['error']   = true;
+        $data['message'] = "Slider not updated.";
+    }
+
+    echo json_encode( $data );
+
+}
+
+// update status
+if ( isset( $_POST['action'] ) && $_POST['action'] === 'update-status' ) {
+    $id     = $_POST['id'];
+    $status = $_POST['status'];
+
+    if ( $slider->changeStatus( $id, $status ) ) {
+        $data['message'] = 'Slider status has been updated!';
+    } else {
+        $data['error']   = true;
+        $data['message'] = 'Slider status not updated!';
+    }
+
+    echo json_encode( $data );
+}
+
+// delete slider
 if ( isset( $_POST['action'] ) && $_POST['action'] === 'delete-slider' ) {
 
     $id     = $_POST['id'];

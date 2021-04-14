@@ -93,10 +93,13 @@ $result = $slider->Slider();
                                     <td> <?=$row['title'];?> </td>
                                     <td> <?=$row['sub_title'];?> </td>
                                     <td> <?=$row['start_date'];?> - <?=$row['end_date'];?> </td>
-                                    <td> <?=$slider->SlideStatus( $row['status'] );?> </td>
+                                    <td> <?=$slider->SlideStatus( $row['status'], $row['id'] );?> </td>
                                     <td>
-                                        <a href="edit-slider.php" class="btn btn-warning text-black">Edit</a>
-                                        <button type="button" class="btn btn-danger text-white remove-slider" data-id="<?=$row['id'];?>">Delete</button>
+                                        <button data-id="<?=$row['id'];?>" data-status="<?=$row['status'] == 1 ? 0 : 1;?>" type="button" class="change-status btn btn-<?=$row['status'] == 1 ? 'info' : 'danger';?> text-white"><i class="fas fa-chevron-<?=$row['status'] == 1 ? 'down' : 'up';?>"></i></button>
+                                        <a href="edit-slider.php?edit=<?=$row['id'];?>" class="btn btn-warning text-black">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-danger text-white remove-slider" data-id="<?=$row['id'];?>"><i class="fas fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                                 <?php endwhile;?>

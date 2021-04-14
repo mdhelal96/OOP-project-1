@@ -10,8 +10,9 @@ function ImageView(Input) {
 }
 
 jQuery(document).ready(function () {
-    $('#slideDataTable').DataTable();
+    
 
+    // create form
     $("#create-form").on('submit', function (event) {
         event.preventDefault();
         $(".ajax-loader").show();
@@ -41,6 +42,65 @@ jQuery(document).ready(function () {
         });
 
     });
+
+    // update form
+    $("#update-form").on('submit', function (event) {
+        event.preventDefault();
+        $(".ajax-loader").show();
+
+        let formData = new FormData(this);
+        formData.append('action', $(this).data('url'));
+
+        $.ajax({
+            url: './inc/action.php',
+            method: 'POST',
+            processData: false,
+            contentType: false,
+            dataType: 'JSON',
+            data: formData,
+            success: function (result) {
+                $(".ajax-loader").hide();
+                if(!result.error){
+                    toastr.success(result.message, {timeOut: 1000});
+                    toastr.options.progressBar = true;
+                }else{
+                    toastr.error(result.message, {timeOut: 1000});
+                    toastr.options.progressBar = true;
+                }
+            }
+        });
+
+    });
+
+
+    // update status
+    $(".change-status").on('click', function(){
+        $(".ajax-loader").show();
+        let id = $(this).data('id');
+        let status = $(this).data('status');
+        const status_num = status === 0 ? "Inactive" : "Active";
+
+        $.ajax({
+            url: './inc/action.php',
+            method: 'POST',
+            data: { id: id, status: status, action: 'update-status' },
+            success: function (response) {
+                $(".ajax-loader").hide();
+                if(!response.error){
+                    toastr.success(response.message, {timeOut: 1000});
+                    toastr.options.progressBar = true;
+
+                    $("#status-text-" + id).text(status_num);
+                }else{
+                    toastr.error(response.message, {timeOut: 1000});
+                    toastr.options.progressBar = true;
+                }
+            }
+        });
+        
+    });
+
+
 
     // remove slider js
     $(".remove-slider").on('click', function(){
@@ -94,6 +154,6 @@ jQuery(document).ready(function () {
         todayHighlight: true,
     });
 
-    console.log("Test");
+    $('#slideDataTable').DataTable();
 
 });
