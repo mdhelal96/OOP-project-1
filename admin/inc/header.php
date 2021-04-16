@@ -197,6 +197,16 @@ if ( isset( $_SESSION['user_name'] ) ) {
                             </a>
                         </li>
 
+
+
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sidebar feather-icon"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg><span class="hide-menu"> Works</span></a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                                <li class="sidebar-item"><a href="work-menu.php" class="sidebar-link"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> Menu </span></a></li>
+                                <li class="sidebar-item"><a href="work-items.php" class="sidebar-link"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Portfolio </span></a></li>
+                            </ul>
+                        </li>
+
+
                     </ul>
 
                 </nav>

@@ -77,20 +77,24 @@ jQuery(document).ready(function () {
     $(".change-status").on('click', function(){
         $(".ajax-loader").show();
         let id = $(this).data('id');
-        let status = $(this).data('status');
-        const status_num = status === 0 ? "Inactive" : "Active";
 
         $.ajax({
             url: './inc/action.php',
             method: 'POST',
-            data: { id: id, status: status, action: 'update-status' },
+            data: { id: id, action: 'update-status' },
             success: function (response) {
                 $(".ajax-loader").hide();
                 if(!response.error){
                     toastr.success(response.message, {timeOut: 1000});
                     toastr.options.progressBar = true;
 
-                    $("#status-text-" + id).text(status_num);
+                    if(response.status){
+                        $("#status-text-" + id ).text("Active").addClass("label-success").removeClass("label-danger");
+                        $("#change-status-btn-" + id).addClass("btn-info").removeClass("btn-danger").html('<i class="fas fa-chevron-down"></i>');
+                    }else{
+                        $("#status-text-" + id ).text("Inactive").addClass("label-danger").removeClass("label-success");
+                        $("#change-status-btn-" + id).addClass("btn-danger").removeClass("btn-info").html('<i class="fas fa-chevron-up"></i>');
+                    }
                 }else{
                     toastr.error(response.message, {timeOut: 1000});
                     toastr.options.progressBar = true;

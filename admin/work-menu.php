@@ -1,11 +1,10 @@
 <?php
-
 require_once 'inc/header.php';
 
-use App\classes\Slider;
-$slider = new Slider();
+use App\classes\WorkMenu;
+$worksmenu = new WorkMenu();
 
-$result = $slider->Slider();
+$result = $worksmenu->worksMenu();
 
 ?>
 <!-- ============================================================== -->
@@ -19,7 +18,7 @@ $result = $slider->Slider();
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Slider</li>
+                        <li class="breadcrumb-item active" aria-current="page">Work Menu</li>
                     </ol>
                 </nav>
             </div>
@@ -41,12 +40,12 @@ $result = $slider->Slider();
                 <div class="card-body">
                     <div class="row row-cols-2 align-items-center">
                         <div class="col">
-                            <h3>Manage Sliders</h3>
+                            <h3>Manage Work Menus</h3>
                         </div>
                         <div class="col text-end">
-                            <a href="create-slider.php" class="btn slider-create-btn create-btn text-white no-block  align-items-center">
+                            <a href="work-menu-create.php" class="btn slider-create-btn create-btn text-white no-block  align-items-center">
                                 <i class="fa fa-plus-square"></i>
-                                <span class="hide-menu m-l-5">Add New Slider</span>
+                                <span class="hide-menu m-l-5">Add New Menu</span>
                             </a>
                         </div>
                     </div>
@@ -66,7 +65,7 @@ $result = $slider->Slider();
                     <!-- title -->
                     <div class="d-md-flex">
                         <div>
-                            <h4 class="card-title">Sliders</h4>
+                            <h4 class="card-title">Work Menus</h4>
                         </div>
                         <!--  -->
                     </div>
@@ -77,33 +76,29 @@ $result = $slider->Slider();
                             <thead>
                                 <tr class="bg-light">
                                     <th class="border-top-0">SL No</th>
-                                    <th class="border-top-0 image-column">Image</th>
-                                    <th class="border-top-0">Title</th>
-                                    <th class="border-top-0">Sub Title</th>
-                                    <th class="border-top-0">Time Limit</th>
+                                    <th class="border-top-0">Name</th>
+                                    <th class="border-top-0">Slug</th>
                                     <th class="border-top-0">Status</th>
                                     <th class="border-top-0">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php while ( $row = $result->fetch_assoc() ): ?>
-                                <tr class="remove-row-<?=$row['id'];?>">
-                                    <td> <?=$row['id'];?> </td>
-                                    <td class="slide-img"> <img src="../uploads/slider/<?=$row['image'];?>" alt="Not Found!"> </td>
-                                    <td> <?=$row['title'];?> </td>
-                                    <td> <?=$row['sub_title'];?> </td>
-                                    <td> <?=$row['start_date'];?> - <?=$row['end_date'];?> </td>
-                                    <td> <?=$slider->SlideStatus( $row['status'], $row['id'] );?> </td>
-                                    <td>
-                                        <button id="change-status-btn-<?=$row['id'];?>" data-id="<?=$row['id'];?>" type="button" class="change-status btn btn-<?=$row['status'] == 1 ? 'info' : 'danger';?> text-white">
-                                            <i class="fas fa-chevron-<?=$row['status'] == 1 ? 'down' : 'up';?>"></i>
-                                        </button>
-                                        <a href="edit-slider.php?edit=<?=$row['id'];?>" class="btn btn-warning text-black">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <button type="button" class="btn btn-danger text-white remove-slider" data-id="<?=$row['id'];?>"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
+                                    <tr class="remove-row-<?=$row['id'];?>">
+                                        <td> <?=$row['id'];?> </td>
+                                        <td> <?=$row['name'];?> </td>
+                                        <td> <?=$row['slug'];?> </td>
+                                        <td> <?=$row['status'];?> </td>
+                                        <td>
+                                            <button id="change-status-btn-<?=$row['id'];?>" data-id="<?=$row['id'];?>" type="button" class="change-status btn btn-<?=$row['status'] == 1 ? 'info' : 'danger';?> text-white">
+                                                <i class="fas fa-chevron-<?=$row['status'] == 1 ? 'down' : 'up';?>"></i>
+                                            </button>
+                                            <a href="#" class="btn btn-warning text-black">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-danger text-white remove-slider" data-id="<?=$row['id'];?>"><i class="fas fa-trash-alt"></i></button>
+                                        </td>
+                                    </tr>
                                 <?php endwhile;?>
                             </tbody>
                         </table>

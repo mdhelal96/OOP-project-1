@@ -4,9 +4,11 @@ header( 'Content-type: application/json' );
 require_once "../../vendor/autoload.php";
 
 use App\classes\Slider;
+use App\classes\WorkMenu;
 
-$slider = new Slider();
-$data   = ['error' => false];
+$slider   = new Slider();
+$workmenu = new WorkMenu();
+$data     = ['error' => false];
 
 // save slider
 if ( isset( $_POST['action'] ) && $_POST['action'] === 'save-slider' ) {
@@ -75,9 +77,12 @@ if ( isset( $_POST['action'] ) && $_POST['action'] === 'update-slider' ) {
 // update status
 if ( isset( $_POST['action'] ) && $_POST['action'] === 'update-status' ) {
     $id     = $_POST['id'];
-    $status = $_POST['status'];
+    $result = $slider->GetSlider( $id );
+    $row    = $result->fetch_assoc();
+    $status = $row['status'] == 1 ? 0 : 1;
 
     if ( $slider->changeStatus( $id, $status ) ) {
+        $data['status']  = $status;
         $data['message'] = 'Slider status has been updated!';
     } else {
         $data['error']   = true;
@@ -106,4 +111,20 @@ if ( isset( $_POST['action'] ) && $_POST['action'] === 'delete-slider' ) {
     }
 
     echo json_encode( $data );
+}
+
+// save work menu
+if ( isset( $_POST['action'] ) && $_POST['action'] === 'save-work-menu' ) {
+    $name   = $_POST['name'];
+    $status = $_POST['status'];
+
+    if ( $workmenu->saveWorkMenu( $name, $status ) ) {
+        $data['message'] = "Work Menu has been saved.";
+    } else {
+        $data['error']   = true;
+        $data['message'] = "Work menu not saved.";
+    }
+
+    echo json_encode( $data );
+
 }
